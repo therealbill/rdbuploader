@@ -45,7 +45,7 @@ if filesize >= int(config.main.maxfilesize):
 		logger.error("Dump file is larger than configured limits ({} bytes), bailing".format(config.main.maxfilesize) )
 		sys.exit(-1)
 
-destination_module = config.main.targetmodule
+destination_module = config.main.driver
 print destination_module
 
 driver = __import__("drivers.{}".format(destination_module), globals(), locals(), fromlist = ['upload_redis_dump'] )

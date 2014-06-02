@@ -4,7 +4,7 @@
 class Driver(object):
 
 	def __init__( self, config_instance ):
-		self.driver = config_instance.main.targetmodule
+		self.driver = config_instance.main.driver
 		self.user = config_instance.get( self.driver,'username' )
 		self.apikey = config_instance.get( self.driver,'apikey' )
 		self.destination_format = config_instance.main.destinationformat
