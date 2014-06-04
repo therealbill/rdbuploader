@@ -39,4 +39,3 @@ Now you'll need to modify it to have your credentials and remote-specific
 settings. For details on the configuration of rdbuploader see [the config doc](docs/configuration.md).
 
 
-

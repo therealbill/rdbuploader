@@ -7,13 +7,22 @@ import logging
 import sys
 import os
 
+import argparse
+
+parser = argparse.ArgumentParser(description='Upload Dump file to Remote server')
+parser.add_argument("-config", help="Config file to use", default="/etc/redis/rdbuploader.cfg")
+args = parser.parse_args()
+
+"""
 
 try:
 	cfg_filename = sys.argv[1]
 except IndexError:
 	cfg_filename = "/etc/redis/rdbuploader.cfg"
+"""
 
-
+print args.config
+cfg_filename = args.config
 config = gitconfig.config(cfg_filename)
 
 if not config.exists:
@@ -28,8 +37,6 @@ console_handler.setFormatter(formatter)
 
 logger.addHandler(console_handler)
 logger.setLevel(logging.INFO)
-
-
 
 if not os.path.isfile(config.redis.dumpfile):
 	logger.error("No dump file '{}' found, nothing to do".format(config.redis.dumpfile) )
@@ -46,10 +53,13 @@ if filesize >= int(config.main.maxfilesize):
 		sys.exit(-1)
 
 destination_module = config.main.driver
-print destination_module
 
-driver = __import__("drivers.{}".format(destination_module), globals(), locals(), fromlist = ['upload_redis_dump'] )
-print driver
+try:
+	driver = __import__("drivers.{}".format(destination_module), globals(), locals(), fromlist = ['upload_redis_dump'] )
+except ImportError:
+	logger.error("Was unable to import driver '{}', perhaps config is incorrect?".format(destination_module) )
+	sys.exit(-1)
+
 
 remote = driver.Driver(config)
 

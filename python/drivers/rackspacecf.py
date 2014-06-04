@@ -52,8 +52,8 @@ class Driver(Base.Driver):
 
 		try:
 			self.container = self.connection.get_container( self.containername )
-			logger.info("found container from ")
 			message = "found container"
+			logger.info(message)
 			return_code = True
 		except Exception as err:
 			logger.warn( "No container '{}' found".format(self.containername) )
@@ -61,8 +61,6 @@ class Driver(Base.Driver):
 				self.container = self.connection.create_container( destination['containername']  )
 				logger.info( "Created container '{containername}'".format(**destination) )
 				message = "Container created"
-			except boto.exception.S3ResponseError as err:
-				logger.critical("Unable to create container due to policy limitations" )
 			except Exception as err:
 				logger.critical("Unable to create container due to exception '{}".format(err) )
 
