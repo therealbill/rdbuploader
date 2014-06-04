@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"./drivers"
 	"code.google.com/p/gcfg"
+	drivers "github.com/TheRealBill/rdbuploader/go/drivers"
 )
 
 type Config struct {
