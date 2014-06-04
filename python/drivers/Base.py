@@ -12,7 +12,7 @@ class Driver(object):
 		self.containername = config_instance.get( self.driver, "containername" )
 		self.connection = None
 		self.container = None
-		self.destination_file_format = config_instance.main.destinationformat
+		self.destination_file_format = config_instance.destinationformat.python
 		self.dumpfile = config_instance.redis.dumpfile
 
 
