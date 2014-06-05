@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"code.google.com/p/gcfg"
-	drivers "github.com/TheRealBill/rdbuploader/go/drivers"
+	drivers "github.com/TheRealBill/rdbuploader/drivers"
 )
 
 type Config struct {
@@ -14,11 +14,7 @@ type Config struct {
 	Main struct {
 		Driver      string
 		Maxfilesize int64
-	}
-
-	DestinationFormat struct {
-		Python string
-		Go     string
+		DestinationFormat string
 	}
 
 	Redis struct {
@@ -47,7 +43,7 @@ func getDriver(config Config) drivers.Driver {
 		mydriver.Apikey = config.Rackspacecf.Apikey
 		mydriver.Authurl = "https://auth.api.rackspacecloud.com/v1.0"
 		mydriver.Origin = config.Redis.Dumpfile
-		mydriver.Layout = config.DestinationFormat.Go
+		mydriver.Layout = config.Main.DestinationFormat
 		mydriver.Containername = config.Rackspacecf.Containername
 		return mydriver
 
@@ -57,7 +53,7 @@ func getDriver(config Config) drivers.Driver {
 		mydriver.Username = config.Amazons3.Username
 		mydriver.Apikey = config.Amazons3.Apikey
 		mydriver.Origin = config.Redis.Dumpfile
-		mydriver.Layout = config.DestinationFormat.Go
+		mydriver.Layout = config.Main.DestinationFormat
 		mydriver.Containername = config.Amazons3.Containername
 		return mydriver
 	}

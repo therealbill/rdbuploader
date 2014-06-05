@@ -2,7 +2,7 @@
 
 By default rdbuploader will look to /etc/redis/rdbuploader.cfg, but can be
 passed a filepath/name on the command line to point it to a specific config
-file. This cofnig file will contain all options the program needs to operate. 
+file. This config file will contain all options the program needs to operate. 
 
 ## Format
 
